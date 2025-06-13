@@ -1,0 +1,136 @@
+/* Modal arka planı için bulanıklık ve koyuluk */
+.follow-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0,0,0,0.4);
+  backdrop-filter: blur(8px);
+}
+
+/* Modal kutusu */
+.follow-modal-box {
+  background: rgba(255,255,255,0.92);
+  border-radius: 1.5rem;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+  max-width: 400px;
+  width: 100%;
+  max-height: 80vh;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+}
+
+/* Modal başlık */
+.follow-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.25rem 1.5rem;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+/* Kullanıcı kartı */
+.follow-user-card {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.75rem 0.5rem;
+  margin-bottom: 0.5rem;
+  background: #fff;
+  border-radius: 1rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  transition: box-shadow 0.2s;
+  cursor: pointer;
+}
+.follow-user-card:hover {
+  box-shadow: 0 4px 16px rgba(0,0,0,0.10);
+}
+
+.follow-user-card img {
+  width: 48px;
+  height: 48px;
+  border-radius: 9999px;
+  object-fit: cover;
+  border: 1px solid #e5e7eb;
+}
+
+.follow-user-card .user-info {
+  flex: 1;
+}
+
+.follow-user-card .user-info .name {
+  font-weight: 600;
+  color: #222;
+}
+
+.follow-user-card .user-info .username {
+  color: #6b7280;
+  font-size: 0.95em;
+}
+
+.follow-user-card .unfollow-btn {
+  background: #f3f4f6;
+  color: #374151;
+  padding: 0.4rem 1.1rem;
+  border-radius: 0.75rem;
+  font-weight: 500;
+  border: none;
+  transition: background 0.2s;
+}
+.follow-user-card .unfollow-btn:hover {
+  background: #e5e7eb;
+}
+
+/* Profili Düzenle modalı için ek stiller */
+.follow-modal-box.max-w-lg {
+  max-width: 520px;
+  width: 100%;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+  border-radius: 1.5rem;
+  overflow: visible;
+}
+
+.follow-modal-header.rounded-t-2xl {
+  border-top-left-radius: 1.5rem;
+  border-top-right-radius: 1.5rem;
+  background: linear-gradient(90deg, #e0e7ff 0%, #fff 100%);
+}
+
+/* Dosya seç butonu için özel stil */
+input[type="file"].hidden {
+  display: none;
+}
+
+label[for^="file"] {
+  cursor: pointer;
+}
+
+/* Form içi görseller */
+img[alt*="Önizleme"] {
+  box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+  border: 2px solid #e5e7eb;
+}
+
+/* Modalda scroll barı gizle */
+.follow-modal-box::-webkit-scrollbar {
+  display: none;
+}
+.follow-modal-box {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+/* Responsive ve padding düzeltmeleri */
+@media (max-width: 600px) {
+  .follow-modal-box.max-w-lg {
+    max-width: 98vw;
+    padding: 0;
+  }
+  .follow-modal-header.rounded-t-2xl {
+    padding: 1rem 1rem;
+  }
+}

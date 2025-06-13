@@ -1,0 +1,100 @@
+<div class="max-w-6xl mx-auto px-4 py-6">
+  <div class="flex flex-col md:flex-row border rounded-button overflow-hidden shadow bg-white">
+
+    <!-- SOL: Mesaj Listesi -->
+    <div class="w-full md:w-1/3 border-r">
+      <div class="p-4 border-b flex items-center justify-between">
+        <h2 class="text-lg font-bold">Mesajlar</h2>
+        <button class="text-primary hover:text-blue-600" (click)="openNewMessageModal()">
+          <i class="ri-edit-2-line ri-lg"></i>
+        </button>
+      </div>
+
+      <!-- Yeni Mesaj Modalı -->
+      <div *ngIf="showNewMessageModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-30">
+        <div class="bg-white rounded-xl shadow-lg w-full max-w-md p-6 relative">
+          <button class="absolute top-2 right-3 text-gray-400 hover:text-gray-700 text-2xl" (click)="closeNewMessageModal()">&times;</button>
+          <h3 class="text-lg font-bold mb-4">Yeni Mesaj</h3>
+          <div *ngIf="followingList.length === 0" class="text-gray-400 text-center py-6">Takip ettiğiniz kimse yok.</div>
+          <ul *ngIf="followingList.length > 0" class="divide-y">
+            <li *ngFor="let user of followingList" class="flex items-center p-3 hover:bg-gray-100 cursor-pointer rounded-lg" (click)="startConversationWithFollowing(user)">
+              <img [src]="user.profilePhotoUrl || 'https://randomuser.me/api/portraits/lego/1.jpg'" class="w-9 h-9 rounded-full object-cover mr-3" />
+              <span class="font-medium">{{ user.firstName }} {{ user.lastName }}</span>
+              <span class="text-xs text-gray-500 ml-2">&#64;{{ user.username }}</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Kullanıcılar -->
+      <ul class="divide-y">
+        <li *ngFor="let conv of conversations" class="p-4 hover:bg-gray-50 cursor-pointer" (click)="selectConversation(conv)">
+          <div class="flex items-center">
+            <div class="w-10 h-10 rounded-full overflow-hidden">
+              <img [src]="conv.otherUser?.profilePhotoUrl || 'https://randomuser.me/api/portraits/lego/1.jpg'" class="w-full h-full object-cover" />
+            </div>
+            <div class="ml-3">
+              <p class="font-medium">{{ conv.otherUser?.firstName }} {{ conv.otherUser?.lastName }}</p>
+              <p class="text-sm text-gray-500 truncate max-w-[120px]">{{ conv.lastMessage }}</p>
+            </div>
+            <span class="ml-auto text-xs text-gray-400">{{ conv.lastMessageAt | timeAgo }}</span>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <!-- SAĞ: Mesajlaşma Ekranı -->
+    <div class="w-full md:w-2/3 flex flex-col h-[600px]">
+      <ng-container *ngIf="selectedConversation && otherUser; else noChat">
+        <!-- Başlık -->
+        <div class="p-4 border-b flex items-center">
+          <div class="w-10 h-10 rounded-full overflow-hidden">
+            <img [src]="otherUser?.profilePhotoUrl || 'https://randomuser.me/api/portraits/lego/1.jpg'" class="w-full h-full object-cover" />
+          </div>
+          <div class="ml-3">
+            <p class="font-bold">{{ otherUser?.firstName }} {{ otherUser?.lastName }}</p>
+            <p class="text-sm text-gray-500">&#64;{{ otherUser?.username }}</p>
+          </div>
+        </div>
+
+        <!-- Mesajlar -->
+        <div class="flex-1 overflow-y-auto px-4 py-2 space-y-3 custom-scrollbar bg-gray-50">
+          <div *ngFor="let msg of messages">
+            <div class="flex items-end mb-2" [ngClass]="{'justify-end': msg.senderId === currentUserId, 'justify-start': msg.senderId !== currentUserId}">
+              <ng-container *ngIf="msg.senderId !== currentUserId">
+                <img [src]="otherUser?.profilePhotoUrl || 'https://randomuser.me/api/portraits/lego/1.jpg'" class="w-7 h-7 rounded-full mr-2 self-end" />
+              </ng-container>
+              <div [ngClass]="msg.senderId === currentUserId ? 'bg-primary text-white rounded-t-xl rounded-bl-xl' : 'bg-gray-200 text-gray-900 rounded-t-xl rounded-br-xl'" class="max-w-xs px-4 py-2 text-sm shadow">
+                {{ msg.content }}
+                <div class="text-[10px] text-right mt-1 opacity-60" *ngIf="msg.createdAt">{{ msg.createdAt?.toDate ? (msg.createdAt.toDate() | date:'shortTime') : (msg.createdAt | date:'shortTime') }}</div>
+              </div>
+              <ng-container *ngIf="msg.senderId === currentUserId">
+                <img [src]="currentUser?.profilePhotoUrl || 'https://randomuser.me/api/portraits/lego/1.jpg'" class="w-7 h-7 rounded-full ml-2 self-end" />
+              </ng-container>
+            </div>
+          </div>
+          <div id="messages-end"></div>
+        </div>
+
+        <!-- Mesaj Gönder -->
+        <div class="p-4 border-t flex items-center space-x-2">
+          <input
+            type="text"
+            class="flex-1 px-4 py-2 border border-gray-200 rounded-button focus:outline-none focus:ring-2 focus:ring-primary"
+            placeholder="Mesaj yaz..."
+            [(ngModel)]="newMessage"
+            (keyup.enter)="sendMessage()"
+          />
+          <button class="bg-primary text-white py-2 px-4 rounded-button hover:bg-blue-600 transition-colors" (click)="sendMessage()">
+            Gönder
+          </button>
+        </div>
+      </ng-container>
+      <ng-template #noChat>
+        <div class="flex-1 flex items-center justify-center text-gray-400">
+          Bir sohbet seçin veya yeni bir mesaj başlatın.
+        </div>
+      </ng-template>
+    </div>
+  </div>
+</div>

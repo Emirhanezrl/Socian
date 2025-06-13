@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Socian</title>
+    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: { primary: "#0066FF", secondary: "#0044FF" },
+            borderRadius: {
+              none: "0px",
+              sm: "4px",
+              DEFAULT: "8px",
+              md: "12px",
+              lg: "16px",
+              xl: "20px",
+              "2xl": "24px",
+              "3xl": "32px",
+              full: "9999px",
+              button: "8px",
+            },
+          },
+        },
+      };
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css"
+    />
+    <style>
+      :where([class^="ri-"])::before { content: "\f3c2"; }
+      body {
+          font-family: 'Inter', sans-serif;
+          background-color: #f8f9fa;
+      }
+      .form-input {
+          height: 48px;
+          transition: all 0.3s ease;
+          border: 1px solid #e5e7eb;
+      }
+      .form-input:focus {
+          border-color: #0066FF;
+          box-shadow: 0 0 0 3px rgba(0, 102, 255, 0.1);
+      }
+      .btn-gradient {
+          background: linear-gradient(to right, #0066FF, #0044FF);
+          transition: all 0.3s ease;
+      }
+      .btn-gradient:hover {
+          background: linear-gradient(to right, #0055DD, #0033DD);
+          transform: translateY(-1px);
+      }
+    </style>
+  </head>
+  <body class="min-h-screen flex flex-col">
+    <app-root></app-root>
+    <script id="formValidation">
+      document.addEventListener("DOMContentLoaded", function () {
+        const form = document.querySelector("form");
+
+        form.addEventListener("submit", function (e) {
+          e.preventDefault();
+
+          const email = document.getElementById("email").value;
+          const password = document.getElementById("password").value;
+          const passwordConfirm = document.getElementById("password-confirm").value;
+
+          if (!email || !password || !passwordConfirm) {
+            alert("Lütfen tüm alanları doldurun.");
+            return;
+          }
+
+          if (password !== passwordConfirm) {
+            alert("Şifreler eşleşmiyor.");
+            return;
+          }
+
+          // Form başarıyla gönderildi
+          alert("Kayıt işlemi başarılı!");
+          form.reset();
+        });
+      });
+    </script>
+  </body>
+</html>

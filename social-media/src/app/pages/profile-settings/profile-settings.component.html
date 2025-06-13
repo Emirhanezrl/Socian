@@ -1,0 +1,42 @@
+<div class="min-h-screen flex justify-center bg-gray-100 px-4 py-10">
+  <div class="w-full max-w-2xl bg-white rounded-2xl shadow-md p-8">
+    <h2 class="text-2xl font-bold text-primary mb-6">Profili Düzenle</h2>
+
+    <form class="space-y-5">
+      <!-- Profil Fotoğrafı -->
+      <div class="flex items-center space-x-4">
+        <img src="https://randomuser.me/api/portraits/women/44.jpg" class="w-16 h-16 rounded-full object-cover" />
+        <button type="button" class="text-sm text-primary hover:underline">Profil fotoğrafını değiştir</button>
+      </div>
+
+      <!-- Ad Soyad -->
+      <div>
+        <label class="block text-sm font-medium text-gray-700">Ad Soyad</label>
+        <input type="text" value="Elif Yalçın" class="w-full mt-1 p-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary" />
+      </div>
+
+      <!-- Kullanıcı Adı -->
+      <div>
+        <label class="block text-sm font-medium text-gray-700">Kullanıcı Adı</label>
+        <input type="text" value="elifyalcin" class="w-full mt-1 p-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary" />
+      </div>
+
+      <!-- Bio -->
+      <div>
+        <label class="block text-sm font-medium text-gray-700">Hakkımda</label>
+        <textarea rows="3" class="w-full mt-1 p-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary">Doğaya aşığım 🌿 Kahve ve fotoğraf tutkunu ☕</textarea>
+      </div>
+
+      <!-- Şifre Değiştir -->
+      <div>
+        <label class="block text-sm font-medium text-gray-700">Yeni Şifre</label>
+        <input type="password" placeholder="İsteğe bağlı" class="w-full mt-1 p-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary" />
+      </div>
+
+      <!-- Güncelle Butonu -->
+      <button type="submit" class="bg-primary text-white py-2 px-6 rounded-xl hover:bg-blue-600 transition-colors">
+        Güncellemeleri Kaydet
+      </button>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,30 @@
+<div class="max-w-3xl mx-auto px-4 py-6">
+  <!-- Sayfa Başlığı -->
+  <div class="flex items-center justify-between mb-6">
+    <h2 class="text-xl font-bold">Bildirimler</h2>
+  </div>
+
+  <!-- Bildirim Listesi -->
+  <div *ngIf="loading" class="text-center text-gray-400 py-8">Yükleniyor...</div>
+  <div *ngIf="!loading && notifications.length === 0" class="text-center text-gray-400 py-8">Hiç bildiriminiz yok.</div>
+  <div class="space-y-4" *ngIf="!loading && notifications.length > 0">
+    <div *ngFor="let notif of notifications" class="flex items-start p-3 hover:bg-gray-50 rounded-lg transition-colors" [ngClass]="{'bg-blue-50': !notif.read}">
+      <div class="w-10 h-10 rounded-full bg-gray-200 overflow-hidden">
+        <img [src]="notif.fromProfilePhotoUrl || 'https://randomuser.me/api/portraits/lego/1.jpg'" alt="Profil" class="w-full h-full object-cover">
+      </div>
+      <div class="ml-3 flex-1">
+        <p class="text-gray-800">
+          <span class="font-bold">{{ notif.fromFirstName }} {{ notif.fromLastName }}</span>
+          <ng-container [ngSwitch]="notif.type">
+            <span *ngSwitchCase="'comment'"> gönderinize yorum yaptı: "{{ notif.content }}"</span>
+            <span *ngSwitchDefault> yeni bir bildirim aldı.</span>
+          </ng-container>
+        </p>
+        <p class="text-gray-500 text-sm mt-1">{{ notif.createdAt?.toDate ? (notif.createdAt.toDate() | timeAgo) : (notif.createdAt | timeAgo) }}</p>
+      </div>
+      <button (click)="deleteNotification(notif.id)" class="ml-4 text-gray-400 hover:text-red-600 transition" title="Sil">
+        <i class="ri-delete-bin-line ri-xl"></i>
+      </button>
+    </div>
+  </div>
+</div>

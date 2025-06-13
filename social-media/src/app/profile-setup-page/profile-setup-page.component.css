@@ -1,0 +1,58 @@
+.profile-setup-bg {
+  background: #f8f9fb;
+  min-height: 80vh;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 3vh;
+}
+.profile-setup-card {
+  box-shadow: 0 4px 32px 0 rgba(0,0,0,0.08), 0 1.5px 4px 0 rgba(0,0,0,0.03);
+  border-radius: 1.5rem;
+  border: 1px solid #e5e7eb;
+  padding: 1.5rem 1.2rem;
+  max-width: 350px;
+  width: 100%;
+}
+.profile-setup-card h2 {
+  font-size: 1.3rem;
+  font-weight: 800;
+  margin-bottom: 1.1rem;
+}
+.profile-setup-card form {
+  width: 100%;
+}
+.profile-setup-card input[type="text"],
+.profile-setup-card textarea {
+  font-size: 1rem;
+  border-radius: 1rem;
+  padding: 0.6rem 0.9rem;
+  border: 1px solid #e5e7eb;
+  background: #f5f7fa;
+  transition: border 0.2s, box-shadow 0.2s;
+}
+.profile-setup-card input[type="text"]:focus,
+.profile-setup-card textarea:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 2px #2563eb22;
+  background: #fff;
+}
+.profile-setup-card button[type="submit"] {
+  font-size: 1.05rem;
+  border-radius: 1rem;
+  padding: 0.7rem 0;
+  font-weight: 600;
+  margin-top: 0.3rem;
+}
+.profile-setup-card .relative {
+  width: 100%;
+}
+.profile-setup-card img {
+  object-fit: cover;
+}
+@media (max-width: 600px) {
+  .profile-setup-card {
+    padding: 0.7rem 0.2rem;
+    max-width: 99vw;
+  }
+} 

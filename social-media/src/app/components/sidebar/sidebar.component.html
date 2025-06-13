@@ -1,0 +1,43 @@
+<aside class="sidebar flex flex-col h-screen sticky top-0 overflow-y-auto custom-scrollbar bg-white shadow-md w-72">
+  <!-- Logo -->
+  <div class="p-6 flex items-center justify-center">
+    <img src="assets/logo/logo.png" alt="Uygulama Logosu" class="h-32 w-auto">
+  </div>
+
+  <!-- Navigasyon -->
+  <nav class="flex-1 px-4 py-2 space-y-2">
+    <a routerLink="/home" routerLinkActive="text-primary" class="flex items-center w-full p-3 rounded-button hover:bg-blue-50 text-gray-700 font-medium transition-colors">
+      <i class="ri-home-5-line ri-lg mr-3"></i>
+      <span>Ana Sayfa</span>
+    </a>
+    <a routerLink="/explore" routerLinkActive="text-primary" class="flex items-center w-full p-3 rounded-button hover:bg-blue-50 text-gray-700 font-medium transition-colors">
+      <i class="ri-compass-3-line ri-lg mr-3"></i>
+      <span>Keşfet</span>
+    </a>
+    <a routerLink="/notifications" routerLinkActive="text-primary" class="flex items-center w-full p-3 rounded-button hover:bg-blue-50 text-gray-700 font-medium transition-colors relative">
+      <i class="ri-notification-3-line ri-lg mr-3"></i>
+      <span>Bildirimler</span>
+      <span *ngIf="hasUnreadNotification" class="absolute top-2 right-4 w-3 h-3 bg-red-600 rounded-full border-2 border-white"></span>
+    </a>
+    <a routerLink="/messages" routerLinkActive="text-primary" class="flex items-center w-full p-3 rounded-button hover:bg-blue-50 text-gray-700 font-medium transition-colors">
+      <i class="ri-message-3-line ri-lg mr-3"></i>
+      <span>Mesajlar</span>
+    </a>
+    <a routerLink="/profile" routerLinkActive="text-primary" class="flex items-center w-full p-3 rounded-button hover:bg-blue-50 text-gray-700 font-medium transition-colors">
+      <i class="ri-user-line ri-lg mr-3"></i>
+      <span>Profil</span>
+    </a>
+  </nav>
+
+  <!-- Giriş / Kayıt -->
+  <div class="p-4 mt-auto border-t">
+    <div class="flex flex-col space-y-2">
+      <button *ngIf="!isLoggedIn" class="w-full bg-primary text-white py-2 px-4 rounded-button font-medium hover:bg-blue-600 transition-colors" routerLink="/login">
+        Giriş Yap
+      </button>
+      <button *ngIf="isLoggedIn" class="w-full bg-red-500 text-white py-2 px-4 rounded-button font-medium hover:bg-red-600 transition-colors" (click)="logout()">
+        Çıkış Yap
+      </button>
+    </div>
+  </div>
+</aside>

@@ -1,0 +1,8 @@
+<div class="flex min-h-screen">
+  <app-sidebar *ngIf="showSidebar"></app-sidebar>
+
+  <main class="flex-1 min-w-0">
+    <app-loading *ngIf="loading$ | async"></app-loading>
+    <router-outlet></router-outlet>
+  </main>
+</div>

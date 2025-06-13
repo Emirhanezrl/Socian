@@ -1,0 +1,61 @@
+<div class="max-w-3xl mx-auto px-4 py-6">
+  <!-- Sayfa Başlığı -->
+  <div class="flex items-center justify-between mb-6">
+    <h2 class="text-xl font-bold">Keşfet</h2>
+  </div>
+
+  <!-- Arama Kutusu -->
+  <div class="relative mb-6">
+    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+      <i class="ri-search-line text-gray-400"></i>
+    </div>
+    <input
+      type="text"
+      class="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-button bg-gray-50 focus:bg-white focus:outline-none"
+      placeholder="@kullaniciadi ile ara..."
+      [(ngModel)]="searchTerm"
+      (input)="onSearchChange()"
+    />
+  </div>
+
+  <!-- Kullanıcı Arama Sonuçları -->
+  <div *ngIf="userResults.length > 0" class="mb-8 bg-white rounded-xl shadow p-4">
+    <div *ngFor="let user of userResults" class="flex items-center gap-4 py-2 px-2 hover:bg-gray-50 rounded-lg cursor-pointer transition" [routerLink]="['/profile', user.username]">
+      <img [src]="user.profilePhotoUrl || 'https://randomuser.me/api/portraits/lego/1.jpg'" class="w-12 h-12 rounded-full object-cover border border-gray-200" />
+      <div>
+        <div class="font-semibold text-gray-900">{{ user.firstName }} {{ user.lastName }}</div>
+        <div class="text-gray-500">&#64;{{ user.username }}</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tüm Postlar (Arama yapılmıyorsa) -->
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4" *ngIf="posts.length > 0 && userResults.length === 0">
+    <div *ngFor="let post of posts" class="post-card overflow-hidden cursor-pointer hover:shadow-lg transition" [routerLink]="['/post', post.id]">
+      <ng-container *ngIf="post.imageUrl; else noImage">
+        <img [src]="post.imageUrl" alt="Gönderi" class="w-full h-48 object-cover" />
+      </ng-container>
+      <ng-template #noImage></ng-template>
+      <div [ngClass]="{'p-4': post.imageUrl, 'py-6 px-4': !post.imageUrl}">
+        <div class="flex items-center mb-2">
+          <div class="w-8 h-8 rounded-full bg-gray-200 overflow-hidden">
+            <img [src]="post.profilePhotoUrl || 'https://randomuser.me/api/portraits/lego/1.jpg'" class="w-full h-full object-cover" />
+          </div>
+          <div class="ml-2">
+            <p class="font-medium text-sm">{{ post.firstName }} {{ post.lastName }}</p>
+            <p class="text-gray-500 text-xs">&#64;{{ post.username }}</p>
+          </div>
+        </div>
+        <h3 class="font-bold mb-2" *ngIf="post.content">{{ post.content | slice:0:80 }}<span *ngIf="post.content.length > 80">...</span></h3>
+        <div class="flex justify-between mt-3 text-gray-500 text-sm">
+          <div class="flex items-center">
+            <i class="ri-heart-line w-5 h-5 mr-1"></i>{{ post.likeCount || 0 }}
+          </div>
+          <div class="flex items-center">
+            <i class="ri-chat-1-line w-5 h-5 mr-1"></i>{{ post.commentCount || 0 }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

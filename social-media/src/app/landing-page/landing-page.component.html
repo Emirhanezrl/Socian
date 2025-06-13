@@ -1,0 +1,89 @@
+<body class="min-h-screen flex flex-col">
+
+  <!-- Main -->
+  <main class="flex-1 flex flex-col md:flex-row items-center justify-center px-6 py-8 mt-20">
+    <div class="w-full max-w-md flex flex-col items-center md:items-start md:mr-16 mb-10 md:mb-0">
+      <div class="mb-8 flex items-center justify-center">
+        <img src="assets/logo/logo.png" alt="Logo" class="w-96 h-96 object-contain" />
+      </div>
+      <h1 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4 text-center md:text-left">
+        Sosyal dünyaya hoş geldiniz
+      </h1>
+      <p class="text-gray-600 text-center md:text-left">
+        Arkadaşlarınızla bağlantı kurun, anılarınızı paylaşın ve dünyayı keşfedin.
+      </p>
+    </div>
+
+    <div class="w-full max-w-md">
+      <div class="bg-white rounded-lg shadow-lg p-8">
+        <p *ngIf="successMessage" class="mb-4 text-center text-sm font-medium text-green-600 bg-green-50 border border-green-200 rounded-lg py-2 px-4">{{ successMessage }}</p>
+        <!-- Profil kurulum ekranı görünümü -->
+        <ng-container *ngIf="showProfileSetup">
+          <h2 class="text-2xl font-bold mb-6 text-center">Profilinizi Kurun</h2>
+          <app-profile-setup-page [registeredUser]="newlyRegisteredUser" (profileSetupSuccessMessage)="onProfileSetupSuccessMessage($event)"></app-profile-setup-page>
+        </ng-container>
+
+        <!-- Giriş ve kayıt formları (profil kurulum görünmüyorsa) -->
+        <ng-container *ngIf="!showProfileSetup">
+          <ng-container *ngIf="showLogin">
+            <app-login-page (loginSuccessMessage)="onLoginSuccessMessage($event)"></app-login-page>
+          </ng-container>
+
+          <ng-container *ngIf="!showLogin">
+            <app-register-page (registrationSuccess)="onRegistrationSuccess($event)" (registrationSuccessMessage)="onRegistrationSuccessMessage($event)"></app-register-page>
+          </ng-container>
+        </ng-container>
+
+        <div class="mt-6 text-center">
+          <p class="text-gray-600">
+            <ng-container *ngIf="showLogin">
+              Hesabınız yok mu?
+              <a (click)="toggleForm('register')" class="text-primary font-medium cursor-pointer">Kayıt ol</a>
+            </ng-container>
+            <ng-container *ngIf="!showLogin">
+              Zaten bir hesabınız var mı?
+              <a (click)="toggleForm('login')" class="text-primary font-medium cursor-pointer">Giriş yap</a>
+            </ng-container>
+          </p>
+        </div>
+      </div>
+
+      <div class="mt-8">
+        <p class="text-sm text-gray-500 text-center">
+          Kayıt olarak,
+          <a href="#" class="text-primary">Kullanım Koşullarını</a> ve
+          <a href="#" class="text-primary">Gizlilik Politikasını</a> kabul etmiş olursunuz.
+        </p>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="w-full py-2 px-2 border-t border-gray-200 max-h-[15vh] overflow-y-auto text-xs">
+    <div class="max-w-7xl mx-auto">
+      <div class="flex flex-wrap justify-center text-gray-500 gap-4">
+        <a href="#" class="hover:text-primary">Hakkında</a>
+        <a href="#" class="hover:text-primary">Socian uygulaması nedir</a>
+        <a href="#" class="hover:text-primary">Gizlik</a>
+        <a href="#" class="hover:text-primary">Yardım Merkezi</a>
+        <a href="#" class="hover:text-primary">Hizmet Şartları</a>
+        <a href="#" class="hover:text-primary">Gizlilik Politikası</a>
+        <a href="#" class="hover:text-primary">Çerez Politikası</a>
+        <a href="#" class="hover:text-primary">İmprint</a>
+        <a href="#" class="hover:text-primary">Erişilebilirlik</a>
+        <a href="#" class="hover:text-primary">Reklam bilgisi</a>
+        <a href="#" class="hover:text-primary">Blog</a>
+        <a href="#" class="hover:text-primary">Kariyer</a>
+        <a href="#" class="hover:text-primary">Marka Kaynakları</a>
+        <a href="#" class="hover:text-primary">Reklam</a>
+        <a href="#" class="hover:text-primary">Pazarlama</a>
+        <a href="#" class="hover:text-primary">İşletmeler için Sosyal</a>
+        <a href="#" class="hover:text-primary">Geliştiriciler</a>
+        <a href="#" class="hover:text-primary">Dizin</a>
+        <a href="#" class="hover:text-primary">Ayarlar</a>
+      </div>
+      <div class="mt-2 text-center text-gray-500">© 2025 Sosyal</div>
+    </div>
+  </footer>
+
+</body>
