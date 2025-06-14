@@ -38,21 +38,28 @@
       <ng-template #noImage></ng-template>
       <div [ngClass]="{'p-4': post.imageUrl, 'py-6 px-4': !post.imageUrl}">
         <div class="flex items-center mb-2">
-          <div class="w-8 h-8 rounded-full bg-gray-200 overflow-hidden">
-            <img [src]="post.profilePhotoUrl || 'https://randomuser.me/api/portraits/lego/1.jpg'" class="w-full h-full object-cover" />
-          </div>
-          <div class="ml-2">
-            <p class="font-medium text-sm">{{ post.firstName }} {{ post.lastName }}</p>
-            <p class="text-gray-500 text-xs">&#64;{{ post.username }}</p>
+          <div class="flex items-center cursor-pointer w-full"
+               [routerLink]="['/profile', post.username]"
+               (click)="$event.stopPropagation()">
+            <div class="w-8 h-8 rounded-full bg-gray-200 overflow-hidden">
+              <img [src]="post.profilePhotoUrl || 'https://randomuser.me/api/portraits/lego/1.jpg'" class="w-full h-full object-cover" />
+            </div>
+            <div class="ml-2">
+              <p class="font-medium text-sm">{{ post.firstName }} {{ post.lastName }}</p>
+              <p class="text-gray-500 text-xs">&#64;{{ post.username }}</p>
+            </div>
           </div>
         </div>
         <h3 class="font-bold mb-2" *ngIf="post.content">{{ post.content | slice:0:80 }}<span *ngIf="post.content.length > 80">...</span></h3>
         <div class="flex justify-between mt-3 text-gray-500 text-sm">
-          <div class="flex items-center">
-            <i class="ri-heart-line w-5 h-5 mr-1"></i>{{ post.likeCount || 0 }}
+          <div class="flex items-center space-x-1 hover:text-red-500 cursor-pointer select-none" (click)="toggleLike(post, $event)">
+            <i [ngClass]="post.isLiked ? 'ri-heart-fill text-red-500' : 'ri-heart-line'" class="ri-lg"></i><span>{{ post.likeCount || 0 }}</span>
           </div>
-          <div class="flex items-center">
-            <i class="ri-chat-1-line w-5 h-5 mr-1"></i>{{ post.commentCount || 0 }}
+          <div class="flex items-center space-x-1 hover:text-green-500 cursor-pointer select-none" (click)="toggleRetweet(post, $event)">
+            <i [ngClass]="post.isRetweeted ? 'ri-repeat-2-fill text-green-500' : 'ri-repeat-line'" class="ri-lg"></i><span>{{ post.retweetCount || 0 }}</span>
+          </div>
+          <div class="flex items-center space-x-1 hover:text-primary cursor-pointer">
+            <i class="ri-chat-1-line ri-lg"></i><span>{{ post.commentCount || 0 }}</span>
           </div>
         </div>
       </div>

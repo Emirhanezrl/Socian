@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NotificationService } from '../../services/notification.service';
 import { AuthService } from '../../services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-notifications',
@@ -12,7 +13,11 @@ export class NotificationsComponent implements OnInit {
   currentUserId: string = '';
   loading: boolean = true;
 
-  constructor(private notificationService: NotificationService, private authService: AuthService) { }
+  constructor(
+    private notificationService: NotificationService,
+    private authService: AuthService,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
     this.authService.currentUser$.subscribe(user => {
@@ -30,5 +35,12 @@ export class NotificationsComponent implements OnInit {
     if (!this.currentUserId) return;
     await this.notificationService.deleteNotification(this.currentUserId, notifId);
     // Silme sonrası bildirimler otomatik güncellenecek çünkü observable
+  }
+
+  onNotificationClick(notif: any) {
+    if (notif.type === 'message' && notif.fromUserId) {
+      this.router.navigate(['/messages'], { queryParams: { user: notif.fromUserId } });
+    }
+    // Diğer bildirim tipleri için ek yönlendirme eklenebilir
   }
 }

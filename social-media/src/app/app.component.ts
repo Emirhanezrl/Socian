@@ -13,6 +13,7 @@ export class AppComponent implements OnInit {
   title = 'social-media';
   isLoggedIn: boolean = false;
   showSidebar: boolean = false;
+  sidebarOpen: boolean = false; // Mobil sidebar açık mı
   loading$ = this.loadingService.loading$;
 
   constructor(private authService: AuthService, private router: Router, private loadingService: LoadingService) { }
@@ -34,5 +35,12 @@ export class AppComponent implements OnInit {
 
   private updateSidebarVisibility(currentUrl: string): void {
     this.showSidebar = this.isLoggedIn && currentUrl !== '/profile-setup' && currentUrl !== '/';
+    if (!this.showSidebar) {
+      this.sidebarOpen = false;
+    }
+  }
+
+  toggleSidebar() {
+    this.sidebarOpen = !this.sidebarOpen;
   }
 }

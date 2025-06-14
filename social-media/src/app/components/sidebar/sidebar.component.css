@@ -1,0 +1,134 @@
+/* Masaüstü ve mobilde sidebar her zaman açık, hamburger ve mobil açılır/kapanır kodlar kaldırıldı */
+.sidebar {
+  transition: none;
+  z-index: 40;
+  display: flex !important;
+}
+
+/* Masaüstü için varsayılan görünüm */
+.sidebar {
+  transition: left 0.3s, transform 0.3s;
+  z-index: 40;
+  display: flex !important;
+}
+
+/* Mobilde sidebar kapalıyken tamamen gizle */
+.sidebar-mobile-hidden {
+  display: none !important;
+}
+
+/* Mobilde sidebar açıkken tam ekran üstte sabit ve önde */
+@media (max-width: 900px) {
+  .sidebar {
+    position: fixed !important;
+    left: 0;
+    top: 0;
+    height: 100vh !important;
+    width: 80vw !important;
+    max-width: 320px !important;
+    min-width: 200px !important;
+    box-shadow: 0 0 0 9999px rgba(0,0,0,0.3);
+    transform: translateX(0);
+    z-index: 1000;
+  }
+  .sidebar-mobile-hidden {
+    display: none !important;
+  }
+  .sidebar-mobile {
+    display: flex !important;
+    position: fixed !important;
+    left: 0;
+    top: 0;
+    height: 100vh !important;
+    width: 80vw !important;
+    max-width: 320px !important;
+    min-width: 200px !important;
+    background: #fff;
+    box-shadow: 0 0 0 9999px rgba(0,0,0,0.3);
+    z-index: 1000;
+    transition: left 0.3s, transform 0.3s;
+  }
+  .sidebar-close-btn {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    background: #fff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    border: none;
+  }
+  .sidebar-close-btn svg {
+    display: block;
+    margin: auto;
+  }
+  .sidebar img {
+    height: 80px !important;
+    width: auto !important;
+    margin: 0 auto !important;
+    display: block !important;
+  }
+  .sidebar-logo {
+    display: block;
+    margin: 0 auto;
+    max-width: 80px;
+    max-height: 80px;
+    width: 100%;
+    height: auto;
+  }
+}
+
+/* Masaüstünde sidebar kapatma butonu gizli */
+.sidebar-close-btn {
+  display: none;
+}
+
+/* Hamburger butonu stilleri (app.component.html'de) */
+.hamburger-btn {
+  width: 48px;
+  height: 48px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: #fff;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+  z-index: 1100;
+  padding: 0;
+}
+.hamburger-btn svg {
+  display: block;
+  width: 32px;
+  height: 32px;
+}
+
+@media (min-width: 900px) {
+  .hamburger-btn {
+    display: none !important;
+  }
+  /* Masaüstünde sidebar her zaman görünür */
+  .sidebar {
+    display: flex !important;
+    position: sticky !important;
+    left: 0 !important;
+    top: 0 !important;
+    height: 100vh !important;
+    width: 18rem !important;
+    min-width: 16rem !important;
+    max-width: 22rem !important;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    z-index: 40;
+  }
+  .sidebar-mobile-hidden {
+    display: flex !important;
+  }
+  .sidebar-mobile {
+    display: flex !important;
+  }
+}
+
+/* ...varsa diğer stiller... */

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, HostListener } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { NotificationService } from '../../services/notification.service';
@@ -11,6 +11,8 @@ import { NotificationService } from '../../services/notification.service';
 export class SidebarComponent implements OnInit {
   isLoggedIn: boolean = false;
   hasUnreadNotification: boolean = false;
+  @Input() mobileOpen: boolean = false;
+  @Output() closeSidebar = new EventEmitter<void>();
 
   constructor(private authService: AuthService, private router: Router, private notificationService: NotificationService) { }
 
@@ -31,5 +33,12 @@ export class SidebarComponent implements OnInit {
     this.authService.logout().then(() => {
       this.router.navigate(['/']);
     });
+  }
+
+  @HostListener('document:keydown.escape', ['$event'])
+  onEsc(event: KeyboardEvent) {
+    if (this.mobileOpen) {
+      this.closeSidebar.emit();
+    }
   }
 }

@@ -1,7 +1,13 @@
-<aside class="sidebar flex flex-col h-screen sticky top-0 overflow-y-auto custom-scrollbar bg-white shadow-md w-72">
+<aside class="sidebar flex flex-col h-screen sticky top-0 overflow-y-auto custom-scrollbar bg-white shadow-md w-72"
+  [ngClass]="{'sidebar-mobile': mobileOpen, 'sidebar-mobile-hidden': !mobileOpen}"
+  (click)="$event.stopPropagation()">
   <!-- Logo -->
-  <div class="p-6 flex items-center justify-center">
-    <img src="assets/logo/logo.png" alt="Uygulama Logosu" class="h-32 w-auto">
+  <div class="p-6 flex items-center justify-center relative">
+    <img src="assets/logo/logo.png" alt="Uygulama Logosu" class="sidebar-logo">
+    <!-- Mobilde kapatma butonu -->
+    <button class="sidebar-close-btn md:hidden absolute top-2 right-2 z-50 bg-white rounded-full shadow p-2 flex items-center justify-center" (click)="closeSidebar.emit()" *ngIf="mobileOpen">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#222" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
   </div>
 
   <!-- Navigasyon -->

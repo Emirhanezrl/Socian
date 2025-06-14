@@ -4,6 +4,8 @@ import { AuthService } from '../../services/auth.service';
 import { firstValueFrom } from 'rxjs';
 import { forkJoin } from 'rxjs';
 import { FollowService } from '../../services/follow.service';
+import { NotificationService } from '../../services/notification.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-messages',
@@ -23,7 +25,13 @@ export class MessagesComponent implements OnInit {
   showNewMessageModal: boolean = false;
   followingList: any[] = [];
 
-  constructor(private messageService: MessageService, private authService: AuthService, private followService: FollowService) { }
+  constructor(
+    private messageService: MessageService,
+    private authService: AuthService,
+    private followService: FollowService,
+    private notificationService: NotificationService,
+    private route: ActivatedRoute
+  ) { }
 
   ngOnInit(): void {
     this.authService.currentUser$.subscribe(user => {
@@ -41,6 +49,16 @@ export class MessagesComponent implements OnInit {
             return { ...conv, otherUser };
           }));
           this.conversations = convsWithUsers;
+
+          // Bildirimden gelindiyse ilgili sohbeti aç
+          this.route.queryParams.subscribe(params => {
+            if (params['user']) {
+              const targetConv = this.conversations.find(c => c.otherUser?.uid === params['user']);
+              if (targetConv) {
+                this.selectConversation(targetConv);
+              }
+            }
+          });
         });
       }
     });
@@ -63,6 +81,16 @@ export class MessagesComponent implements OnInit {
     if (!this.newMessage.trim() || !this.selectedConversation) return;
     const otherId = this.selectedConversation.users.find((id: string) => id !== this.currentUserId);
     await this.messageService.sendMessage(this.currentUserId, otherId, this.newMessage);
+    // Bildirim ekle (daha anlamlı içerik)
+    await this.notificationService.addNotification(otherId, {
+      type: 'message',
+      fromUserId: this.currentUserId,
+      fromUserName: this.currentUser?.firstName + ' ' + this.currentUser?.lastName,
+      fromUserUsername: this.currentUser?.username,
+      createdAt: new Date(),
+      read: false,
+      content: `${this.currentUser?.firstName} ${this.currentUser?.lastName} size yeni bir mesaj gönderdi: '${this.newMessage.slice(0, 40)}'`
+    });
     this.newMessage = '';
   }
 

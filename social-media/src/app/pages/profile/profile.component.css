@@ -126,11 +126,105 @@ img[alt*="Önizleme"] {
 
 /* Responsive ve padding düzeltmeleri */
 @media (max-width: 600px) {
-  .follow-modal-box.max-w-lg {
-    max-width: 98vw;
-    padding: 0;
+  .max-w-3xl, .max-w-lg, .max-w-2xl {
+    max-width: 100vw !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+  .px-4, .py-6, .p-8, .p-4, .space-y-6, .mt-10, .ml-8, .mr-2, .mt-4, .mb-0, .mb-6, .mt-2, .mt-3, .mb-2, .gap-4, .gap-1, .gap-2, .gap-3, .gap-5, .gap-6 {
+    padding-left: 8px !important;
+    padding-right: 8px !important;
+    padding-top: 8px !important;
+    padding-bottom: 8px !important;
+    margin: 0 !important;
+  }
+  .h-64, .w-32, .h-32, .w-48, .h-24, .w-20, .h-20, .w-10, .h-10, .w-12, .h-12, .w-8, .h-8 {
+    width: 64px !important;
+    height: 64px !important;
+    min-width: 48px !important;
+    min-height: 48px !important;
+    max-width: 100% !important;
+    max-height: 100% !important;
+  }
+  .rounded-xl, .rounded-button, .rounded-full, .rounded-2xl {
+    border-radius: 1rem !important;
+  }
+  .text-2xl, .text-xl, .text-lg, .text-base {
+    font-size: 1.1rem !important;
+  }
+  .flex {
+    flex-direction: column !important;
+    align-items: stretch !important;
+  }
+  .flex.items-start, .flex.items-center {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+  }
+  .post-card {
+    padding: 8px !important;
+    margin-bottom: 12px !important;
+  }
+  .follow-modal-box {
+    max-width: 98vw !important;
+    padding: 0 !important;
   }
   .follow-modal-header.rounded-t-2xl {
-    padding: 1rem 1rem;
+    padding: 1rem 1rem !important;
+  }
+  .user-info {
+    margin-left: 0 !important;
+  }
+  .ml-8, .mr-2 {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+  .mt-4, .mt-10 {
+    margin-top: 8px !important;
+  }
+  .space-x-4, .space-x-1 {
+    gap: 8px !important;
+  }
+  .overflow-hidden {
+    overflow-x: auto !important;
+  }
+  .post-card .flex.items-start {
+    flex-direction: row !important;
+    align-items: flex-start !important;
+  }
+  .post-card .w-10.h-10, .post-card .w-12.h-12 {
+    min-width: 40px !important;
+    min-height: 40px !important;
+    width: 40px !important;
+    height: 40px !important;
+    margin-right: 10px !important;
+  }
+  .post-card .ml-3 {
+    margin-left: 0 !important;
+  }
+  .post-card .flex.items-center {
+    flex-direction: row !important;
+    align-items: center !important;
+    gap: 8px !important;
+    flex-wrap: wrap;
+  }
+  .post-card .font-bold {
+    font-size: 1rem !important;
+    margin-right: 6px !important;
+  }
+  .post-card .text-gray-500.text-sm.ml-2 {
+    margin-left: 0 !important;
+    font-size: 0.95rem !important;
+  }
+  .post-card .text-gray-500.text-sm {
+    font-size: 0.95rem !important;
+  }
+  /* Etkileşim ikonları yatay dizilsin */
+  .post-card .flex.justify-between {
+    flex-direction: row !important;
+    align-items: center !important;
+  }
+  .post-card .flex.items-center {
+    flex-direction: row !important;
+    align-items: center !important;
   }
 }
